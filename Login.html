@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfinityCRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --y:#F5C400;--yd:#C49A00;--r:#CC0000;
+  --b:#1A5FA8;--bd:#0D3F7A;--bl:#E8F1FB;
+  --g:#2D7D3A;--gl:#E6F5E8;
+  --o:#C4570A;--ol:#FDF0E6;
+  --gray:#6B6B68;--bg:#F4F3F0;--white:#FFFFFF;
+  --border:#E2DED6;--text:#18180F;--t2:#5C5C58;--t3:#9C9C98;
+  --rad:10px;--rad-lg:14px;
+  --sh:0 2px 8px rgba(0,0,0,.08);
+  --sh-lg:0 8px 32px rgba(0,0,0,.14);
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+
+/* ===================== LOGIN ===================== */
+#login-screen{position:fixed;inset:0;display:flex;z-index:999;background:var(--bg)}
+.ll{flex:1;background:linear-gradient(145deg,#0D3F7A 0%,#1A5FA8 60%,#1E72C8 100%);display:flex;flex-direction:column;justify-content:center;padding:64px;position:relative;overflow:hidden}
+.ll-dc{position:absolute;border-radius:50%;background:rgba(255,255,255,.06)}
+.ll-dc1{width:360px;height:360px;top:-100px;right:-80px}
+.ll-dc2{width:240px;height:240px;bottom:-60px;left:-60px}
+.ll-dc3{width:120px;height:120px;bottom:120px;right:60px;background:rgba(245,196,0,.12)}
+.ll-brand{position:relative;z-index:1}
+.ll-logobox{width:44px;height:44px;background:var(--y);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#000;font-family:'JetBrains Mono',monospace;margin-bottom:28px}
+.ll-h{font-size:32px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:12px}
+.ll-h span{color:var(--y)}
+.ll-p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:28px;max-width:290px}
+.ll-ft{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.7);font-size:12px;margin-bottom:10px}
+.ll-ft-ic{width:26px;height:26px;background:rgba(255,255,255,.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.lr{width:420px;display:flex;flex-direction:column;justify-content:center;padding:64px 52px;background:var(--white)}
+.lr-h{font-size:26px;font-weight:800;color:var(--text);margin-bottom:6px}
+.lr-p{font-size:13px;color:var(--t2);margin-bottom:28px}
+
+/* ===================== FORM ELEMENTS ===================== */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:10px 13px;font-size:13px;border:1.5px solid var(--border);border-radius:var(--rad);background:var(--white);color:var(--text);font-family:inherit;outline:none;transition:all .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b);box-shadow:0 0 0 3px var(--bl)}
+.field textarea{resize:vertical;min-height:70px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{padding:9px 18px;border-radius:var(--rad);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;border:1.5px solid var(--border);background:var(--white);color:var(--text);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:#F0EDE8}
+.btn-primary{background:var(--b);color:#fff;border-color:var(--b)}
+.btn-primary:hover{background:var(--bd)}
+.btn-yellow{background:var(--y);color:#000;border-color:var(--y);font-weight:700}
+.btn-yellow:hover{background:var(--yd)}
+.btn-danger{background:#FEF2F2;color:#B91C1C;border-color:#FECACA}
+.btn-danger:hover{background:#FECACA}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-full{width:100%;justify-content:center;padding:12px}
+.alert{padding:10px 14px;border-radius:var(--rad);font-size:12px;margin-bottom:14px;display:none;font-weight:500}
+.alert.show{display:block}
+.alert-err{background:#FEF2F2;color:#B91C1C;border:1.5px solid #FECACA}
+.alert-ok{background:var(--gl);color:var(--g);border:1.5px solid #A7D7AF}
+
+/* ===================== APP LAYOUT ===================== */
+#app{display:none;height:100vh;overflow:hidden;flex-direction:column}
+#app.show{display:flex}
+
+/* TOP NAV */
+.topnav{background:var(--bd);height:52px;display:flex;align-items:center;padding:0 20px;gap:0;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.25);position:relative;z-index:50}
+.tn-logo{display:flex;align-items:center;gap:9px;margin-right:24px;text-decoration:none}
+.tn-lb{width:30px;height:30px;background:var(--y);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.tn-ln{font-size:14px;font-weight:800;color:#fff}
+.tn-nav{display:flex;gap:2px;flex:1}
+.tn-item{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:var(--rad);font-size:12px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:all .15s;user-select:none}
+.tn-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.tn-item.active{background:var(--y);color:#000}
+.tn-item svg{width:15px;height:15px;flex-shrink:0}
+.tn-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.tn-uinfo{display:flex;align-items:center;gap:7px;padding:5px 10px;border-radius:var(--rad)}
+.tn-av{width:28px;height:28px;border-radius:50%;background:var(--y);color:#000;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tn-un{font-size:12px;font-weight:600;color:#fff}
+.tn-ur{font-size:10px;color:rgba(255,255,255,.45)}
+.tn-out{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:var(--rad);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.tn-out:hover{background:rgba(204,0,0,.35);color:#fff;border-color:rgba(204,0,0,.5)}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:24px}
+.page{display:none}.page.active{display:block}
+
+/* ===================== DASHBOARD ===================== */
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.mc{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rad-lg);padding:16px 14px;position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.mc.cb::before{background:var(--b)}.mc.cg::before{background:var(--g)}.mc.cy::before{background:var(--y)}.mc.co::before{background:var(--o)}.mc.cr::before{background:var(--r)}
+.mc-lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:8px}
+.mc-v{font-size:26px;font-weight:800;color:var(--text);line-height:1}
+.mc-s{font-size:11px;color:var(--t3);margin-top:5px}
+
+/* ===================== CARDS ===================== */
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rad-lg);margin-bottom:16px;overflow:hidden}
+.card-h{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1.5px solid var(--border)}
+.card-t{font-size:13px;font-weight:700}
+.card-b{padding:16px 18px}
+
+/* ===================== TABLE ===================== */
+.tbl-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rad-lg);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead tr{background:#FAFAF8;border-bottom:1.5px solid var(--border)}
+th{text-align:left;padding:10px 13px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+td{padding:10px 13px;font-size:13px;color:var(--text);border-bottom:1px solid #F0EDE8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FAFAF8}
+
+/* ===================== BADGES ===================== */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-deal{background:#E6F5E8;color:#2D7D3A}
+.b-proses{background:var(--bl);color:var(--b)}
+.b-followup{background:var(--ol);color:var(--o)}
+.b-nodeal{background:#FEF2F2;color:#B91C1C}
+.b-admin{background:#1A1A18;color:var(--y)}
+.b-super{background:#EDE9FE;color:#5B21B6}
+.b-user{background:#F0EDE8;color:var(--t2)}
+.b-aktif{background:var(--gl);color:var(--g)}
+.b-nonaktif{background:#FEF2F2;color:#B91C1C}
+
+/* ===================== AVATARS ===================== */
+.av{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.av0{background:var(--bl);color:var(--b)}
+.av1{background:var(--gl);color:var(--g)}
+.av2{background:var(--ol);color:var(--o)}
+.av3{background:#FEF2F2;color:#B91C1C}
+.av4{background:#FFFBEB;color:#92400E}
+.fc{display:flex;align-items:center;gap:8px}
+
+/* ===================== LEADS HEADER ===================== */
+.leads-hdr{background:var(--y);border-radius:var(--rad-lg);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh)}
+.leads-hdr h1{font-size:22px;font-weight:800;color:var(--r);letter-spacing:-.3px}
+
+/* ===================== MODAL ===================== */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:500;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--white);border-radius:var(--rad-lg);width:520px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:var(--sh-lg)}
+.modal-h{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1.5px solid var(--border)}
+.modal-t{font-size:15px;font-weight:700}
+.modal-x{background:none;border:none;cursor:pointer;color:var(--t3);font-size:22px;line-height:1;padding:0 2px}
+.modal-x:hover{color:var(--text)}
+.modal-b{padding:20px}
+.modal-f{padding:14px 20px;border-top:1.5px solid var(--border);display:flex;justify-content:flex-end;gap:8px;background:#FAFAF8}
+
+/* ===================== ROLE PILLS ===================== */
+.role-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.rp{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--white);transition:all .15s}
+.rp.rp-admin{background:#1A1A18;color:var(--y);border-color:#1A1A18}
+.rp.rp-superuser{background:#EDE9FE;color:#5B21B6;border-color:#7C3AED}
+.rp.rp-user{background:var(--bl);color:var(--b);border-color:var(--b)}
+
+/* ===================== PAGE HEADER ===================== */
+.pg-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.pg-t{font-size:18px;font-weight:800;color:var(--text)}
+.pg-s{font-size:12px;color:var(--t3);margin-top:3px}
+
+/* ===================== SPINNER ===================== */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ===================== BAR ===================== */
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-lbl{width:74px;font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0}
+.bar-track{flex:1;height:10px;background:#F0EDE8;border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s}
+.bar-num{width:28px;text-align:right;font-size:12px;font-weight:700;color:var(--text)}
+
+/* ===================== TIMELINE ===================== */
+.tl{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid #F0EDE8}
+.tl:last-child{border-bottom:none}
+.tl-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.tl-t{font-size:13px;font-weight:600;margin-bottom:2px}
+.tl-m{font-size:11px;color:var(--t3)}
+
+/* ===================== EMPTY ===================== */
+.empty{text-align:center;padding:36px 20px;color:var(--t3)}
+.empty-ic{font-size:30px;margin-bottom:8px}
+.empty-tx{font-size:13px}
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGIN ==================== -->
+<div id="login-screen">
+  <div class="ll">
+    <div class="ll-dc ll-dc1"></div>
+    <div class="ll-dc ll-dc2"></div>
+    <div class="ll-dc ll-dc3"></div>
+    <div class="ll-brand">
+      <div class="ll-logobox">INF</div>
+      <div class="ll-h">Kelola Leads &<br><span>Customer</span> Lebih Mudah</div>
+      <div class="ll-p">Sistem CRM internal perusahaan — manajemen leads, data customer, dan laporan terpusat.</div>
+      <div class="ll-ft"><div class="ll-ft-ic">📊</div> Dashboard & metrik real-time</div>
+      <div class="ll-ft"><div class="ll-ft-ic">👥</div> Leads Master Database lengkap</div>
+      <div class="ll-ft"><div class="ll-ft-ic">🔐</div> Hak akses 3 level: Admin · Superuser · User</div>
+      <div class="ll-ft"><div class="ll-ft-ic">📄</div> Export PDF terproteksi tanggal lahir</div>
+    </div>
+  </div>
+  <div class="lr">
+    <div class="lr-h">Selamat Datang 👋</div>
+    <div class="lr-p">Masuk ke akun Anda untuk melanjutkan</div>
+    <div class="alert alert-err" id="login-err"></div>
+    <div class="field"><label>Username</label><input type="text" id="l-user" placeholder="Masukkan username" autocomplete="username"></div>
+    <div class="field"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn btn-primary btn-full" id="login-btn" onclick="doLogin()">Masuk ke Dashboard</button>
+    <p style="font-size:11px;color:var(--t3);text-align:center;margin-top:20px;line-height:1.7">InfinityCRM V1.0 — Sistem Internal Perusahaan<br>Akses hanya untuk karyawan yang berwenang</p>
+    <div style="margin-top:18px;padding:12px 14px;background:#F9F8F5;border-radius:var(--rad);font-size:11px;color:var(--t3);line-height:1.8;border:1px solid var(--border)">
+      <strong style="color:var(--t2)">Demo login:</strong><br>
+      👑 <code style="font-family:'JetBrains Mono',monospace">reza / 1234</code> — Administrator<br>
+      ⚡ <code style="font-family:'JetBrains Mono',monospace">siti / 1234</code> — Superuser<br>
+      👤 <code style="font-family:'JetBrains Mono',monospace">andi / 1234</code> — User
+    </div>
+  </div>
+</div>
+
+<!-- ==================== APP ==================== -->
+<div id="app">
+
+  <!-- TOP NAV -->
+  <div class="topnav">
+    <div class="tn-logo">
+      <div class="tn-lb">INF</div>
+      <div class="tn-ln">InfinityCRM</div>
+    </div>
+    <div class="tn-nav">
+      <div class="tn-item active" id="nav-dashboard" onclick="goPage('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </div>
+      <div class="tn-item" id="nav-leads" onclick="goPage('leads')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Leads & Customer
+      </div>
+      <div class="tn-item" id="nav-users" onclick="goPage('users')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><line x1="19" y1="8" x2="23" y2="8"/><line x1="21" y1="6" x2="21" y2="10"/></svg>
+        Manajemen User
+      </div>
+    </div>
+    <div class="tn-right">
+      <div class="tn-uinfo">
+        <div class="tn-av" id="top-av">A</div>
+        <div><div class="tn-un" id="top-name">—</div><div class="tn-ur" id="top-role">—</div></div>
+      </div>
+      <button class="tn-out" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- =========== DASHBOARD =========== -->
+    <div class="page active" id="page-dashboard">
+      <div class="pg-h">
+        <div><div class="pg-t">Dashboard</div><div class="pg-s" id="dash-date"></div></div>
+      </div>
+      <div class="metrics">
+        <div class="mc cb"><div class="mc-lb">Total Leads</div><div class="mc-v" id="d-total">0</div><div class="mc-s">semua data</div></div>
+        <div class="mc cg"><div class="mc-lb">Deal ✅</div><div class="mc-v" id="d-deal">0</div><div class="mc-s">closing berhasil</div></div>
+        <div class="mc cy"><div class="mc-lb">Proses 🔄</div><div class="mc-v" id="d-proses">0</div><div class="mc-s">sedang diproses</div></div>
+        <div class="mc co"><div class="mc-lb">Follow Up 📞</div><div class="mc-v" id="d-fu">0</div><div class="mc-s">perlu tindak lanjut</div></div>
+        <div class="mc cr"><div class="mc-lb">No Deal ❌</div><div class="mc-v" id="d-nd">0</div><div class="mc-s">tidak berhasil</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card"><div class="card-h"><div class="card-t">Distribusi Status</div></div><div class="card-b" id="dash-bars"></div></div>
+        <div class="card"><div class="card-h"><div class="card-t">Data Lead Terbaru</div></div><div class="card-b" id="dash-recent"></div></div>
+      </div>
+    </div>
+
+    <!-- =========== LEADS =========== -->
+    <div class="page" id="page-leads">
+      <div class="leads-hdr">
+        <div>
+          <h1>Leads Master Database</h1>
+          <div style="font-size:12px;font-weight:600;color:#7A5800;margin-top:4px">
+            Total <span id="leads-count">0</span> data leads terdaftar
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input type="text" id="leads-search" placeholder="🔍 Cari nama, perusahaan, alamat..." oninput="renderLeads()" style="padding:9px 13px;border:1.5px solid rgba(0,0,0,.15);border-radius:var(--rad);font-family:inherit;font-size:13px;width:240px;background:rgba(255,255,255,.7)">
+          <select id="leads-filter" onchange="renderLeads()" style="padding:9px 12px;border:1.5px solid rgba(0,0,0,.15);border-radius:var(--rad);font-family:inherit;font-size:13px;font-weight:600;background:rgba(255,255,255,.7)">
+            <option value="">Semua Status</option>
+            <option value="Deal">Deal</option>
+            <option value="Proses">Proses</option>
+            <option value="Followup">Follow Up</option>
+            <option value="Nodeal">No Deal</option>
+          </select>
+          <button class="btn" id="btn-add-lead" onclick="openAddLead()" style="background:#000;color:var(--y);border-color:#000;font-weight:700">+ Tambah Lead</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40px">No</th>
+              <th>Nama Customer</th>
+              <th>Perusahaan / PT</th>
+              <th>Alamat</th>
+              <th>No HP / WA</th>
+              <th>User (Input)</th>
+              <th>Status Lead</th>
+              <th style="width:110px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody">
+            <tr><td colspan="8"><div class="empty"><div class="empty-ic">📋</div><div class="empty-tx">Belum ada data leads</div></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- =========== USERS =========== -->
+    <div class="page" id="page-users">
+      <div class="pg-h">
+        <div>
+          <div class="pg-t">Manajemen User</div>
+          <div class="pg-s">Kelola akun, hak akses, dan role pengguna sistem</div>
+        </div>
+        <button class="btn btn-primary" id="btn-add-user" onclick="openAddUser()">+ Tambah User</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
+        <div class="card" style="border-top:3px solid #1A1A18;margin-bottom:0">
+          <div class="card-b" style="padding:14px 16px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👑 Administrator</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Penuh</div>
+            <div style="font-size:12px;color:var(--t2);line-height:1.7">Lihat, tambah, edit, hapus semua data leads. Kelola semua user termasuk hapus akun.</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #7C3AED;margin-bottom:0">
+          <div class="card-b" style="padding:14px 16px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">⚡ Superuser</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Lanjutan</div>
+            <div style="font-size:12px;color:var(--t2);line-height:1.7">Edit semua data leads, tambah & edit user (bukan Admin). Tidak bisa hapus user.</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--b);margin-bottom:0">
+          <div class="card-b" style="padding:14px 16px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👤 User</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Input Data</div>
+            <div style="font-size:12px;color:var(--t2);line-height:1.7">Input & edit data leads milik sendiri. Lihat semua leads. Tidak bisa kelola user.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Tanggal Lahir</th>
+              <th>Status</th>
+              <th>Leads Diinput</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<!-- ==================== MODAL LEAD ==================== -->
+<div class="overlay" id="modal-lead">
+  <div class="modal">
+    <div class="modal-h">
+      <div class="modal-t" id="modal-lead-t">Tambah Lead Baru</div>
+      <button class="modal-x" onclick="closeModal('modal-lead')">×</button>
+    </div>
+    <div class="modal-b">
+      <div class="alert alert-err" id="lead-err"></div>
+      <input type="hidden" id="lead-edit-id">
+      <div class="field-row">
+        <div class="field"><label>Nama Customer *</label><input type="text" id="ld-nama" placeholder="Nama lengkap pelanggan"></div>
+        <div class="field"><label>Perusahaan / PT</label><input type="text" id="ld-pt" placeholder="Nama perusahaan"></div>
+      </div>
+      <div class="field"><label>Alamat</label><textarea id="ld-alamat" placeholder="Alamat lengkap pelanggan..."></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>No HP / WA</label><input type="text" id="ld-hp" placeholder="08xx-xxxx-xxxx"></div>
+        <div class="field"><label>Status Lead</label>
+          <select id="ld-status">
+            <option value="Proses">🔄 Proses</option>
+            <option value="Followup">📞 Follow Up</option>
+            <option value="Deal">✅ Deal</option>
+            <option value="Nodeal">❌ No Deal</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Catatan</label><textarea id="ld-catatan" placeholder="Catatan interaksi, kebutuhan, progress..."></textarea></div>
+    </div>
+    <div class="modal-f">
+      <button class="btn" onclick="closeModal('modal-lead')">Batal</button>
+      <button class="btn btn-yellow" onclick="saveLead()">💾 Simpan Lead</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL USER ==================== -->
+<div class="overlay" id="modal-user">
+  <div class="modal">
+    <div class="modal-h">
+      <div class="modal-t" id="modal-user-t">Tambah User Baru</div>
+      <button class="modal-x" onclick="closeModal('modal-user')">×</button>
+    </div>
+    <div class="modal-b">
+      <div class="alert alert-err" id="user-err"></div>
+      <input type="hidden" id="user-edit-id">
+      <div class="field-row">
+        <div class="field"><label>Nama Lengkap *</label><input type="text" id="u-nama" placeholder="Nama lengkap"></div>
+        <div class="field"><label>Username *</label><input type="text" id="u-uname" placeholder="huruf kecil, tanpa spasi"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Password *</label><input type="password" id="u-pass" placeholder="Min. 4 karakter"></div>
+        <div class="field"><label>Tanggal Lahir *</label><input type="date" id="u-tgl" title="Dipakai sebagai password PDF laporan"></div>
+      </div>
+      <div class="field">
+        <label>Role / Hak Akses *</label>
+        <div class="role-pills" id="role-pills">
+          <div class="rp" onclick="pickRole('administrator',this)" data-role="administrator">👑 Administrator</div>
+          <div class="rp" onclick="pickRole('superuser',this)" data-role="superuser">⚡ Superuser</div>
+          <div class="rp" onclick="pickRole('user',this)" data-role="user">👤 User</div>
+        </div>
+        <input type="hidden" id="u-role">
+      </div>
+      <div class="field"><label>Status Akun</label>
+        <select id="u-aktif">
+          <option value="1">✅ Aktif</option>
+          <option value="0">❌ Non-aktif</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn" onclick="closeModal('modal-user')">Batal</button>
+      <button class="btn btn-primary" onclick="saveUser()">💾 Simpan User</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL HAPUS ==================== -->
+<div class="overlay" id="modal-hapus">
+  <div class="modal" style="width:380px">
+    <div class="modal-h">
+      <div class="modal-t">⚠️ Konfirmasi Hapus</div>
+      <button class="modal-x" onclick="closeModal('modal-hapus')">×</button>
+    </div>
+    <div class="modal-b">
+      <p style="font-size:14px;color:var(--t2);line-height:1.7" id="hapus-msg"></p>
+    </div>
+    <div class="modal-f">
+      <button class="btn" onclick="closeModal('modal-hapus')">Batal</button>
+      <button class="btn btn-danger" id="hapus-ok">🗑️ Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let CU = null;
+let DB = {
+  users: [
+    {id:1,nama:'Reza Pratama',  username:'reza',password:'1234',role:'administrator',tgl:'1990-06-15',aktif:true},
+    {id:2,nama:'Siti Wulandari',username:'siti',password:'1234',role:'superuser',    tgl:'1992-03-20',aktif:true},
+    {id:3,nama:'Andi Nugroho',  username:'andi',password:'1234',role:'user',         tgl:'1988-11-08',aktif:true},
+  ],
+  leads:[
+    {id:1,nama:'Budi Santoso',  pt:'CV Nusantara', alamat:'Jl. Merdeka No.12, Jakarta',      hp:'0812-0001-0001',uid:1,status:'Deal',    cat:'Sudah deal produk A',  ts:new Date('2026-04-20')},
+    {id:2,nama:'Dewi Rahayu',   pt:'PT Sejahtera', alamat:'Jl. Sudirman Kav.5, Surabaya',    hp:'0813-0002-0002',uid:2,status:'Proses',   cat:'Diskusi harga',        ts:new Date('2026-04-22')},
+    {id:3,nama:'Eko Prasetyo',  pt:'UD Makmur',    alamat:'Jl. Ahmad Yani No.88, Bandung',   hp:'0814-0003-0003',uid:3,status:'Followup', cat:'Hubungi minggu depan', ts:new Date('2026-04-24')},
+    {id:4,nama:'Fitri Handayani',pt:'PT Harapan',  alamat:'Jl. Gatot Subroto, Semarang',     hp:'0815-0004-0004',uid:1,status:'Nodeal',   cat:'Budget tidak sesuai',  ts:new Date('2026-04-25')},
+    {id:5,nama:'Galih Permana', pt:'CV Karya Maju',alamat:'Jl. Diponegoro No.3, Yogyakarta', hp:'0816-0005-0005',uid:2,status:'Proses',   cat:'Demo 1 Mei',           ts:new Date('2026-04-26')},
+  ],
+  nLid:6, nUid:4,
+};
+
+// ===== HELPERS =====
+const $  = id => document.getElementById(id);
+const ini = n  => n?n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase():'?';
+const avC = id => 'av'+(id%5);
+const fmtD= d  => d?new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}):'-';
+function showAlert(id,msg,t){const e=$(id);e.className='alert show alert-'+t;e.textContent=msg;setTimeout(()=>e.classList.remove('show'),3500)}
+function openModal(id){$(id).classList.add('open')}
+function closeModal(id){$(id).classList.remove('open')}
+const isAdmin =()=> CU&&CU.role==='administrator';
+const canEdit =()=> CU&&(CU.role==='administrator'||CU.role==='superuser');
+
+// ===== AUTH =====
+function doLogin(){
+  const un=$('l-user').value.trim(), pw=$('l-pass').value;
+  $('login-err').classList.remove('show');
+  if(!un||!pw){showAlert('login-err','Username dan password wajib diisi.','err');return;}
+  const btn=$('login-btn');btn.disabled=true;btn.innerHTML='<span class="spin"></span> Memverifikasi...';
+  setTimeout(()=>{
+    const u=DB.users.find(x=>x.username===un&&x.password===pw&&x.aktif);
+    if(!u){showAlert('login-err','Username atau password salah.','err');btn.disabled=false;btn.innerHTML='Masuk ke Dashboard';return;}
+    CU=u;
+    $('login-screen').style.display='none';
+    $('app').classList.add('show');
+    $('top-av').textContent=ini(u.nama);
+    $('top-name').textContent=u.nama;
+    $('top-role').textContent=u.role;
+    // sembunyikan menu user untuk role user biasa
+    $('nav-users').style.display=(u.role==='user')?'none':'';
+    goPage('dashboard');
+    btn.disabled=false;btn.innerHTML='Masuk ke Dashboard';
+  },700);
+}
+function doLogout(){
+  CU=null;
+  $('login-screen').style.display='flex';
+  $('app').classList.remove('show');
+  $('l-user').value='';$('l-pass').value='';
+}
+
+// ===== NAVIGATION =====
+function goPage(nm){
+  if(nm==='users'&&!canEdit()){return;}
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tn-item').forEach(n=>n.classList.remove('active'));
+  $('page-'+nm).classList.add('active');
+  const nav=$('nav-'+nm);if(nav)nav.classList.add('active');
+  if(nm==='dashboard')renderDashboard();
+  if(nm==='leads')renderLeads();
+  if(nm==='users')renderUsers();
+}
+
+// ===== DASHBOARD =====
+function renderDashboard(){
+  const ls=DB.leads;
+  const c=s=>ls.filter(l=>l.status===s).length;
+  $('d-total').textContent=ls.length;
+  $('d-deal').textContent=c('Deal');
+  $('d-proses').textContent=c('Proses');
+  $('d-fu').textContent=c('Followup');
+  $('d-nd').textContent=c('Nodeal');
+  $('dash-date').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+
+  const sts=[{k:'Deal',lbl:'Deal',col:'#2D7D3A'},{k:'Proses',lbl:'Proses',col:'#1A5FA8'},{k:'Followup',lbl:'Follow Up',col:'#C4570A'},{k:'Nodeal',lbl:'No Deal',col:'#B91C1C'}];
+  const mx=Math.max(...sts.map(s=>c(s.k)),1);
+  $('dash-bars').innerHTML=sts.map(s=>`
+    <div class="bar-row">
+      <div class="bar-lbl">${s.lbl}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(c(s.k)/mx*100)}%;background:${s.col}"></div></div>
+      <div class="bar-num">${c(s.k)}</div>
+    </div>`).join('');
+
+  const recent=[...ls].sort((a,b)=>b.id-a.id).slice(0,5);
+  const dotCol={Deal:'#2D7D3A',Proses:'#1A5FA8',Followup:'#C4570A',Nodeal:'#B91C1C'};
+  $('dash-recent').innerHTML=recent.length===0?'<div style="color:var(--t3);font-size:13px">Belum ada data</div>':
+    recent.map(l=>{const u=DB.users.find(x=>x.id===l.uid);return`<div class="tl">
+      <div class="tl-dot" style="background:${dotCol[l.status]||'#999'}"></div>
+      <div><div class="tl-t">${l.nama} <span style="font-weight:400;color:var(--t2)">— ${l.pt||'—'}</span></div>
+      <div class="tl-m">${sBadge(l.status)} · ${u?u.nama:'—'} · ${fmtD(l.ts)}</div></div></div>`;}).join('');
+}
+
+// ===== LEADS =====
+function sBadge(s){
+  const cls={Deal:'b-deal',Proses:'b-proses',Followup:'b-followup',Nodeal:'b-nodeal'};
+  const lbl={Deal:'✅ Deal',Proses:'🔄 Proses',Followup:'📞 Follow Up',Nodeal:'❌ No Deal'};
+  return`<span class="badge ${cls[s]||'b-proses'}">${lbl[s]||s}</span>`;
+}
+
+function renderLeads(){
+  const q=($('leads-search')||{value:''}).value.toLowerCase();
+  const f=($('leads-filter')||{value:''}).value;
+  let rows=[...DB.leads];
+  if(CU.role==='user') rows=rows.filter(l=>l.uid===CU.id); // user hanya lihat milik sendiri
+  if(q) rows=rows.filter(l=>(l.nama+l.pt+l.alamat+l.hp).toLowerCase().includes(q));
+  if(f) rows=rows.filter(l=>l.status===f);
+  $('leads-count').textContent=DB.leads.length;
+
+  if(rows.length===0){
+    $('leads-tbody').innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-ic">🔍</div><div class="empty-tx">Tidak ada data yang cocok</div></div></td></tr>`;
+    return;
+  }
+  $('leads-tbody').innerHTML=rows.map((l,i)=>{
+    const u=DB.users.find(x=>x.id===l.uid);
+    const canEd=isAdmin()||CU.role==='superuser'||(CU.role==='user'&&l.uid===CU.id);
+    const canDel=isAdmin();
+    return`<tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">${i+1}</td>
+      <td><div class="fc"><div class="av ${avC(l.id)}">${ini(l.nama)}</div>
+        <div><div style="font-weight:600">${l.nama}</div>
+        ${l.cat?`<div style="font-size:11px;color:var(--t3);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.cat}</div>`:''}
+        </div></div></td>
+      <td style="font-weight:500">${l.pt||'—'}</td>
+      <td style="font-size:12px;color:var(--t2);max-width:130px;word-break:break-word">${l.alamat||'—'}</td>
+      <td><a href="https://wa.me/${(l.hp||'').replace(/\D/g,'')}" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--b);text-decoration:none" title="Buka WA">${l.hp||'—'}</a></td>
+      <td>${u?`<div class="fc"><div class="av ${avC(u.id)}" style="width:24px;height:24px;font-size:10px">${ini(u.nama)}</div><span style="font-size:12px">${u.nama}</span></div>`:'—'}</td>
+      <td>${sBadge(l.status)}</td>
+      <td><div style="display:flex;gap:4px">
+        ${canEd?`<button class="btn btn-sm" onclick="openEditLead(${l.id})" title="Edit">✏️</button>`:''}
+        ${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusLead(${l.id})" title="Hapus">🗑️</button>`:''}
+        ${!canEd&&!canDel?`<span style="font-size:11px;color:var(--t3)">—</span>`:''}
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openAddLead(){
+  $('modal-lead-t').textContent='Tambah Lead Baru';
+  $('lead-edit-id').value='';
+  ['ld-nama','ld-pt','ld-alamat','ld-hp','ld-catatan'].forEach(id=>$(id).value='');
+  $('ld-status').value='Proses';
+  openModal('modal-lead');
+}
+function openEditLead(id){
+  const l=DB.leads.find(x=>x.id===id);if(!l)return;
+  if(CU.role==='user'&&l.uid!==CU.id){alert('Anda hanya bisa edit data yang Anda input sendiri.');return;}
+  $('modal-lead-t').textContent='Edit Data Lead';
+  $('lead-edit-id').value=id;
+  $('ld-nama').value=l.nama||'';$('ld-pt').value=l.pt||'';
+  $('ld-alamat').value=l.alamat||'';$('ld-hp').value=l.hp||'';
+  $('ld-status').value=l.status||'Proses';$('ld-catatan').value=l.cat||'';
+  openModal('modal-lead');
+}
+function saveLead(){
+  const id=$('lead-edit-id').value;
+  const nama=$('ld-nama').value.trim();
+  if(!nama){showAlert('lead-err','Nama Customer wajib diisi.','err');return;}
+  const data={nama,pt:$('ld-pt').value.trim(),alamat:$('ld-alamat').value.trim(),hp:$('ld-hp').value.trim(),status:$('ld-status').value,cat:$('ld-catatan').value.trim()};
+  if(id){
+    const i=DB.leads.findIndex(x=>x.id==id);
+    if(i>=0) DB.leads[i]={...DB.leads[i],...data};
+  } else {
+    DB.leads.push({id:DB.nLid++,...data,uid:CU.id,ts:new Date()});
+  }
+  closeModal('modal-lead');
+  renderLeads();
+  if($('page-dashboard').classList.contains('active')) renderDashboard();
+}
+function confHapusLead(id){
+  const l=DB.leads.find(x=>x.id===id);if(!l)return;
+  $('hapus-msg').textContent=`Yakin hapus lead "${l.nama}" dari ${l.pt||'—'}? Data tidak bisa dikembalikan.`;
+  $('hapus-ok').onclick=()=>{DB.leads=DB.leads.filter(x=>x.id!==id);closeModal('modal-hapus');renderLeads();renderDashboard();};
+  openModal('modal-hapus');
+}
+
+// ===== USERS =====
+function rBadge(r){
+  const cls={administrator:'b-admin',superuser:'b-super',user:'b-user'};
+  const lbl={administrator:'👑 Administrator',superuser:'⚡ Superuser',user:'👤 User'};
+  return`<span class="badge ${cls[r]||'b-user'}">${lbl[r]||r}</span>`;
+}
+function renderUsers(){
+  $('users-tbody').innerHTML=DB.users.length===0?
+    `<tr><td colspan="7"><div class="empty"><div class="empty-ic">👥</div><div class="empty-tx">Belum ada user</div></div></td></tr>`:
+    DB.users.map(u=>{
+      const lc=DB.leads.filter(l=>l.uid===u.id).length;
+      const canEd=isAdmin()||(CU.role==='superuser'&&u.role!=='administrator');
+      const canDel=isAdmin()&&u.id!==CU.id;
+      return`<tr>
+        <td><div class="fc"><div class="av ${avC(u.id)}">${ini(u.nama)}</div>
+          <div style="font-weight:600">${u.nama}${u.id===CU.id?` <span style="font-size:10px;background:var(--y);color:#000;padding:1px 7px;border-radius:10px;font-weight:700;margin-left:4px">Anda</span>`:''}</div></div></td>
+        <td><code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#F0EDE8;padding:2px 8px;border-radius:5px">${u.username}</code></td>
+        <td>${rBadge(u.role)}</td>
+        <td style="font-size:12px;color:var(--t2)">${fmtD(u.tgl)}</td>
+        <td><span class="badge ${u.aktif?'b-aktif':'b-nonaktif'}">${u.aktif?'Aktif':'Non-aktif'}</span></td>
+        <td><strong style="color:var(--b)">${lc}</strong> <span style="font-size:11px;color:var(--t3)">leads</span></td>
+        <td><div style="display:flex;gap:4px">
+          ${canEd?`<button class="btn btn-sm" onclick="openEditUser(${u.id})">✏️ Edit</button>`:''}
+          ${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusUser(${u.id})">🗑️</button>`:''}
+          ${!canEd&&!canDel?`<span style="font-size:11px;color:var(--t3)">—</span>`:''}
+        </div></td>
+      </tr>`;
+    }).join('');
+}
+
+let pickedRole='';
+function pickRole(r,el){
+  pickedRole=r;$('u-role').value=r;
+  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
+  el.classList.add('rp-'+r);
+}
+function openAddUser(){
+  if(!canEdit()){alert('Akses ditolak.');return;}
+  $('modal-user-t').textContent='Tambah User Baru';
+  $('user-edit-id').value='';
+  ['u-nama','u-uname','u-pass','u-tgl'].forEach(id=>$(id).value='');
+  $('u-aktif').value='1';$('u-role').value='';pickedRole='';
+  $('u-pass').placeholder='Min. 4 karakter';
+  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
+  openModal('modal-user');
+}
+function openEditUser(id){
+  if(!canEdit()){alert('Akses ditolak.');return;}
+  const u=DB.users.find(x=>x.id===id);if(!u)return;
+  if(CU.role==='superuser'&&u.role==='administrator'){alert('Superuser tidak bisa edit akun Administrator.');return;}
+  $('modal-user-t').textContent='Edit User — '+u.nama;
+  $('user-edit-id').value=id;
+  $('u-nama').value=u.nama;$('u-uname').value=u.username;
+  $('u-pass').value='';$('u-pass').placeholder='Kosongkan jika tidak ingin ubah password';
+  $('u-tgl').value=u.tgl||'';$('u-aktif').value=u.aktif?'1':'0';
+  pickedRole=u.role;$('u-role').value=u.role;
+  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
+  document.querySelector(`.rp[data-role="${u.role}"]`)?.classList.add('rp-'+u.role);
+  openModal('modal-user');
+}
+function saveUser(){
+  const id=$('user-edit-id').value;
+  const nama=$('u-nama').value.trim(),uname=$('u-uname').value.trim().toLowerCase();
+  const pass=$('u-pass').value,role=$('u-role').value;
+  const tgl=$('u-tgl').value,aktif=$('u-aktif').value==='1';
+  if(!nama||!uname){showAlert('user-err','Nama dan username wajib diisi.','err');return;}
+  if(!role){showAlert('user-err','Pilih role terlebih dahulu.','err');return;}
+  if(!tgl){showAlert('user-err','Tanggal lahir wajib diisi.','err');return;}
+  if(CU.role==='superuser'&&role==='administrator'){showAlert('user-err','Superuser tidak bisa set role Administrator.','err');return;}
+  if(id){
+    const i=DB.users.findIndex(x=>x.id==id);if(i<0)return;
+    if(DB.users.find(x=>x.username===uname&&x.id!=id)){showAlert('user-err','Username sudah digunakan.','err');return;}
+    DB.users[i]={...DB.users[i],nama,username:uname,role,tgl,aktif};
+    if(pass) DB.users[i].password=pass;
+  } else {
+    if(!pass||pass.length<4){showAlert('user-err','Password minimal 4 karakter.','err');return;}
+    if(DB.users.find(x=>x.username===uname)){showAlert('user-err','Username sudah digunakan.','err');return;}
+    DB.users.push({id:DB.nUid++,nama,username:uname,password:pass,role,tgl,aktif});
+  }
+  closeModal('modal-user');renderUsers();
+}
+function confHapusUser(id){
+  if(!isAdmin()){alert('Hanya Administrator yang bisa hapus user.');return;}
+  const u=DB.users.find(x=>x.id===id);if(!u)return;
+  if(u.id===CU.id){alert('Tidak bisa hapus akun sendiri.');return;}
+  $('hapus-msg').textContent=`Yakin hapus user "${u.nama}" (@${u.username})? Data leads yang diinput tetap tersimpan.`;
+  $('hapus-ok').onclick=()=>{DB.users=DB.users.filter(x=>x.id!==id);closeModal('modal-hapus');renderUsers();};
+  openModal('modal-hapus');
+}
+
+// ===== INIT =====
+document.querySelectorAll('.overlay').forEach(el=>{
+  el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');});
+});
+</script>
+</body>
+</html>
