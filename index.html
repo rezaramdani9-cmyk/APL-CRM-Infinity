@@ -253,7 +253,17 @@ tr:hover td{background:#FAFAF8}
       </div>
     </div>
     <div class="tn-right">
-      
+      <!-- Tombol cetak — hanya muncul untuk administrator -->
+      <button class="btn btn-print btn-sm" id="btn-cetak-nav" onclick="openPrintModal()" style="display:none">
+        🖨️ Cetak Laporan
+      </button>
+      <div class="tn-uinfo">
+        <div class="tn-av" id="top-av">A</div>
+        <div><div class="tn-un" id="top-name">—</div><div class="tn-ur" id="top-role">—</div></div>
+      </div>
+      <button class="tn-out" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
 
   <div class="content">
     <!-- DASHBOARD -->
