@@ -55,6 +55,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .btn-danger:hover{background:#FECACA}
 .btn-sm{padding:5px 11px;font-size:12px}
 .btn-full{width:100%;justify-content:center;padding:12px}
+.btn-print{background:#1A1A18;color:var(--y);border-color:#1A1A18;font-weight:700}
+.btn-print:hover{background:#333}
 .alert{padding:10px 14px;border-radius:var(--rad);font-size:12px;margin-bottom:14px;display:none;font-weight:500}
 .alert.show{display:block}
 .alert-err{background:#FEF2F2;color:#B91C1C;border:1.5px solid #FECACA}
@@ -63,10 +65,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 /* ===================== APP LAYOUT ===================== */
 #app{display:none;height:100vh;overflow:hidden;flex-direction:column}
 #app.show{display:flex}
-
-/* TOP NAV */
 .topnav{background:var(--bd);height:52px;display:flex;align-items:center;padding:0 20px;gap:0;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.25);position:relative;z-index:50}
-.tn-logo{display:flex;align-items:center;gap:9px;margin-right:24px;text-decoration:none}
+.tn-logo{display:flex;align-items:center;gap:9px;margin-right:24px}
 .tn-lb{width:30px;height:30px;background:var(--y);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000;font-family:'JetBrains Mono',monospace;flex-shrink:0}
 .tn-ln{font-size:14px;font-weight:800;color:#fff}
 .tn-nav{display:flex;gap:2px;flex:1}
@@ -81,8 +81,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .tn-ur{font-size:10px;color:rgba(255,255,255,.45)}
 .tn-out{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:var(--rad);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
 .tn-out:hover{background:rgba(204,0,0,.35);color:#fff;border-color:rgba(204,0,0,.5)}
-
-/* CONTENT */
 .content{flex:1;overflow-y:auto;padding:24px}
 .page{display:none}.page.active{display:block}
 
@@ -94,8 +92,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .mc-lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:8px}
 .mc-v{font-size:26px;font-weight:800;color:var(--text);line-height:1}
 .mc-s{font-size:11px;color:var(--t3);margin-top:5px}
-
-/* ===================== CARDS ===================== */
 .card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rad-lg);margin-bottom:16px;overflow:hidden}
 .card-h{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1.5px solid var(--border)}
 .card-t{font-size:13px;font-weight:700}
@@ -121,21 +117,11 @@ tr:hover td{background:#FAFAF8}
 .b-user{background:#F0EDE8;color:var(--t2)}
 .b-aktif{background:var(--gl);color:var(--g)}
 .b-nonaktif{background:#FEF2F2;color:#B91C1C}
-
-/* ===================== AVATARS ===================== */
 .av{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.av0{background:var(--bl);color:var(--b)}
-.av1{background:var(--gl);color:var(--g)}
-.av2{background:var(--ol);color:var(--o)}
-.av3{background:#FEF2F2;color:#B91C1C}
-.av4{background:#FFFBEB;color:#92400E}
+.av0{background:var(--bl);color:var(--b)}.av1{background:var(--gl);color:var(--g)}.av2{background:var(--ol);color:var(--o)}.av3{background:#FEF2F2;color:#B91C1C}.av4{background:#FFFBEB;color:#92400E}
 .fc{display:flex;align-items:center;gap:8px}
-
-/* ===================== LEADS HEADER ===================== */
 .leads-hdr{background:var(--y);border-radius:var(--rad-lg);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh)}
 .leads-hdr h1{font-size:22px;font-weight:800;color:var(--r);letter-spacing:-.3px}
-
-/* ===================== MODAL ===================== */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:500;align-items:center;justify-content:center}
 .overlay.open{display:flex}
 .modal{background:var(--white);border-radius:var(--rad-lg);width:520px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:var(--sh-lg)}
@@ -145,41 +131,75 @@ tr:hover td{background:#FAFAF8}
 .modal-x:hover{color:var(--text)}
 .modal-b{padding:20px}
 .modal-f{padding:14px 20px;border-top:1.5px solid var(--border);display:flex;justify-content:flex-end;gap:8px;background:#FAFAF8}
-
-/* ===================== ROLE PILLS ===================== */
 .role-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .rp{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--white);transition:all .15s}
-.rp.rp-admin{background:#1A1A18;color:var(--y);border-color:#1A1A18}
+.rp.rp-administrator{background:#1A1A18;color:var(--y);border-color:#1A1A18}
 .rp.rp-superuser{background:#EDE9FE;color:#5B21B6;border-color:#7C3AED}
 .rp.rp-user{background:var(--bl);color:var(--b);border-color:var(--b)}
-
-/* ===================== PAGE HEADER ===================== */
 .pg-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
 .pg-t{font-size:18px;font-weight:800;color:var(--text)}
 .pg-s{font-size:12px;color:var(--t3);margin-top:3px}
-
-/* ===================== SPINNER ===================== */
 .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-
-/* ===================== BAR ===================== */
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .bar-lbl{width:74px;font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0}
 .bar-track{flex:1;height:10px;background:#F0EDE8;border-radius:5px;overflow:hidden}
 .bar-fill{height:100%;border-radius:5px;transition:width .5s}
 .bar-num{width:28px;text-align:right;font-size:12px;font-weight:700;color:var(--text)}
-
-/* ===================== TIMELINE ===================== */
 .tl{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid #F0EDE8}
 .tl:last-child{border-bottom:none}
 .tl-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
 .tl-t{font-size:13px;font-weight:600;margin-bottom:2px}
 .tl-m{font-size:11px;color:var(--t3)}
-
-/* ===================== EMPTY ===================== */
 .empty{text-align:center;padding:36px 20px;color:var(--t3)}
 .empty-ic{font-size:30px;margin-bottom:8px}
 .empty-tx{font-size:13px}
+
+/* ===================== MODAL PRINT ===================== */
+.print-opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.print-opt{border:2px solid var(--border);border-radius:var(--rad);padding:12px 14px;cursor:pointer;transition:all .15s;background:var(--white)}
+.print-opt:hover{border-color:var(--b);background:var(--bl)}
+.print-opt.selected{border-color:var(--b);background:var(--bl)}
+.print-opt-ic{font-size:20px;margin-bottom:6px}
+.print-opt-t{font-size:13px;font-weight:700;color:var(--text)}
+.print-opt-s{font-size:11px;color:var(--t3);margin-top:2px}
+
+/* ===================== PRINT STYLES ===================== */
+@media print{
+  #login-screen,#app>.topnav,.overlay,#print-modal{display:none!important}
+  body{background:#fff!important;font-size:11pt}
+  #print-area{display:block!important;position:fixed;inset:0;background:#fff;z-index:9999;padding:0}
+  .no-print{display:none!important}
+}
+#print-area{display:none}
+
+/* Print area styling */
+.pa-wrap{font-family:'Plus Jakarta Sans',sans-serif;padding:20mm 18mm;min-height:100vh;background:#fff}
+.pa-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6mm;padding-bottom:4mm;border-bottom:2px solid #0D3F7A}
+.pa-logo{display:flex;align-items:center;gap:10px}
+.pa-logo-box{width:36px;height:36px;background:#F5C400;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000;font-family:monospace}
+.pa-logo-name{font-size:18px;font-weight:800;color:#0D3F7A}
+.pa-logo-sub{font-size:10px;color:#9C9C98}
+.pa-meta{text-align:right;font-size:10px;color:#6B6B68;line-height:1.7}
+.pa-title{font-size:16px;font-weight:800;color:#CC0000;margin-bottom:1mm}
+.pa-subtitle{font-size:10px;color:#6B6B68;margin-bottom:5mm}
+.pa-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:3mm;margin-bottom:6mm}
+.pa-stat{border:1px solid #E2DED6;border-radius:6px;padding:3mm 3mm;text-align:center}
+.pa-stat-v{font-size:20px;font-weight:800;color:#18180F}
+.pa-stat-l{font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:#9C9C98;margin-top:1mm}
+.pa-table{width:100%;border-collapse:collapse;font-size:9pt}
+.pa-table thead tr{background:#0D3F7A}
+.pa-table th{padding:2.5mm 3mm;text-align:left;font-size:8pt;font-weight:700;color:#fff;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.pa-table td{padding:2.5mm 3mm;border-bottom:1px solid #F0EDE8;vertical-align:top;font-size:9pt;color:#18180F}
+.pa-table tr:nth-child(even) td{background:#FAFAF8}
+.pa-table tr:last-child td{border-bottom:none}
+.pa-badge{display:inline-block;padding:1mm 2.5mm;border-radius:10px;font-size:7.5pt;font-weight:700}
+.pa-badge-deal{background:#E6F5E8;color:#2D7D3A}
+.pa-badge-proses{background:#E8F1FB;color:#1A5FA8}
+.pa-badge-followup{background:#FDF0E6;color:#C4570A}
+.pa-badge-nodeal{background:#FEF2F2;color:#B91C1C}
+.pa-footer{margin-top:8mm;padding-top:3mm;border-top:1px solid #E2DED6;display:flex;justify-content:space-between;font-size:8pt;color:#9C9C98}
+.pa-watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:80px;font-weight:800;color:rgba(26,95,168,.04);pointer-events:none;white-space:nowrap;z-index:0;font-family:sans-serif}
 </style>
 </head>
 <body>
@@ -197,7 +217,7 @@ tr:hover td{background:#FAFAF8}
       <div class="ll-ft"><div class="ll-ft-ic">📊</div> Dashboard & metrik real-time</div>
       <div class="ll-ft"><div class="ll-ft-ic">👥</div> Leads Master Database lengkap</div>
       <div class="ll-ft"><div class="ll-ft-ic">🔐</div> Hak akses 3 level: Admin · Superuser · User</div>
-      <div class="ll-ft"><div class="ll-ft-ic">📄</div> Export PDF terproteksi tanggal lahir</div>
+      <div class="ll-ft"><div class="ll-ft-ic">🖨️</div> Cetak laporan — khusus Administrator</div>
     </div>
   </div>
   <div class="lr">
@@ -208,16 +228,11 @@ tr:hover td{background:#FAFAF8}
     <div class="field"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="btn btn-primary btn-full" id="login-btn" onclick="doLogin()">Masuk ke Dashboard</button>
     <p style="font-size:11px;color:var(--t3);text-align:center;margin-top:20px;line-height:1.7">InfinityCRM V1.0 — Sistem Internal Perusahaan<br>Akses hanya untuk karyawan yang berwenang</p>
-    <div style="margin-top:18px;padding:12px 14px;background:#F9F8F5;border-radius:var(--rad);font-size:11px;color:var(--t3);line-height:1.8;border:1px solid var(--border)">
-      
-    </div>
   </div>
 </div>
 
 <!-- ==================== APP ==================== -->
 <div id="app">
-
-  <!-- TOP NAV -->
   <div class="topnav">
     <div class="tn-logo">
       <div class="tn-lb">INF</div>
@@ -238,6 +253,10 @@ tr:hover td{background:#FAFAF8}
       </div>
     </div>
     <div class="tn-right">
+      <!-- Tombol cetak — hanya muncul untuk administrator -->
+      <button class="btn btn-print btn-sm" id="btn-cetak-nav" onclick="openPrintModal()" style="display:none">
+        🖨️ Cetak Laporan
+      </button>
       <div class="tn-uinfo">
         <div class="tn-av" id="top-av">A</div>
         <div><div class="tn-un" id="top-name">—</div><div class="tn-ur" id="top-role">—</div></div>
@@ -247,11 +266,11 @@ tr:hover td{background:#FAFAF8}
   </div>
 
   <div class="content">
-
-    <!-- =========== DASHBOARD =========== -->
+    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="pg-h">
         <div><div class="pg-t">Dashboard</div><div class="pg-s" id="dash-date"></div></div>
+        <button class="btn btn-print btn-sm" id="btn-cetak-dash" onclick="openPrintModal()" style="display:none">🖨️ Cetak Laporan</button>
       </div>
       <div class="metrics">
         <div class="mc cb"><div class="mc-lb">Total Leads</div><div class="mc-v" id="d-total">0</div><div class="mc-s">semua data</div></div>
@@ -266,17 +285,15 @@ tr:hover td{background:#FAFAF8}
       </div>
     </div>
 
-    <!-- =========== LEADS =========== -->
+    <!-- LEADS -->
     <div class="page" id="page-leads">
       <div class="leads-hdr">
         <div>
           <h1>Leads Master Database</h1>
-          <div style="font-size:12px;font-weight:600;color:#7A5800;margin-top:4px">
-            Total <span id="leads-count">0</span> data leads terdaftar
-          </div>
+          <div style="font-size:12px;font-weight:600;color:#7A5800;margin-top:4px">Total <span id="leads-count">0</span> data leads terdaftar</div>
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <input type="text" id="leads-search" placeholder="🔍 Cari nama, perusahaan, alamat..." oninput="renderLeads()" style="padding:9px 13px;border:1.5px solid rgba(0,0,0,.15);border-radius:var(--rad);font-family:inherit;font-size:13px;width:240px;background:rgba(255,255,255,.7)">
+          <input type="text" id="leads-search" placeholder="🔍 Cari nama, perusahaan, alamat..." oninput="renderLeads()" style="padding:9px 13px;border:1.5px solid rgba(0,0,0,.15);border-radius:var(--rad);font-family:inherit;font-size:13px;width:220px;background:rgba(255,255,255,.7)">
           <select id="leads-filter" onchange="renderLeads()" style="padding:9px 12px;border:1.5px solid rgba(0,0,0,.15);border-radius:var(--rad);font-family:inherit;font-size:13px;font-weight:600;background:rgba(255,255,255,.7)">
             <option value="">Semua Status</option>
             <option value="Deal">Deal</option>
@@ -285,6 +302,7 @@ tr:hover td{background:#FAFAF8}
             <option value="Nodeal">No Deal</option>
           </select>
           <button class="btn" id="btn-add-lead" onclick="openAddLead()" style="background:#000;color:var(--y);border-color:#000;font-weight:700">+ Tambah Lead</button>
+          <button class="btn btn-print" id="btn-cetak-leads" onclick="openPrintModal()" style="display:none">🖨️ Cetak</button>
         </div>
       </div>
       <div class="tbl-wrap">
@@ -308,60 +326,98 @@ tr:hover td{background:#FAFAF8}
       </div>
     </div>
 
-    <!-- =========== USERS =========== -->
+    <!-- USERS -->
     <div class="page" id="page-users">
       <div class="pg-h">
-        <div>
-          <div class="pg-t">Manajemen User</div>
-          <div class="pg-s">Kelola akun, hak akses, dan role pengguna sistem</div>
-        </div>
+        <div><div class="pg-t">Manajemen User</div><div class="pg-s">Kelola akun, hak akses, dan role pengguna sistem</div></div>
         <button class="btn btn-primary" id="btn-add-user" onclick="openAddUser()">+ Tambah User</button>
       </div>
-
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">
-        <div class="card" style="border-top:3px solid #1A1A18;margin-bottom:0">
-          <div class="card-b" style="padding:14px 16px">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👑 Administrator</div>
-            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Penuh</div>
-            <div style="font-size:12px;color:var(--t2);line-height:1.7">Lihat, tambah, edit, hapus semua data leads. Kelola semua user termasuk hapus akun.</div>
-          </div>
-        </div>
-        <div class="card" style="border-top:3px solid #7C3AED;margin-bottom:0">
-          <div class="card-b" style="padding:14px 16px">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">⚡ Superuser</div>
-            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Lanjutan</div>
-            <div style="font-size:12px;color:var(--t2);line-height:1.7">Edit semua data leads, tambah & edit user (bukan Admin). Tidak bisa hapus user.</div>
-          </div>
-        </div>
-        <div class="card" style="border-top:3px solid var(--b);margin-bottom:0">
-          <div class="card-b" style="padding:14px 16px">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👤 User</div>
-            <div style="font-size:13px;font-weight:700;margin-bottom:5px">Input Data</div>
-            <div style="font-size:12px;color:var(--t2);line-height:1.7">Input & edit data leads milik sendiri. Lihat semua leads. Tidak bisa kelola user.</div>
-          </div>
-        </div>
+        <div class="card" style="border-top:3px solid #1A1A18;margin-bottom:0"><div class="card-b" style="padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👑 Administrator</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Penuh + Cetak</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.7">Semua akses + bisa cetak laporan leads. Satu-satunya role yang bisa print.</div>
+        </div></div>
+        <div class="card" style="border-top:3px solid #7C3AED;margin-bottom:0"><div class="card-b" style="padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">⚡ Superuser</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:5px">Akses Lanjutan</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.7">Edit semua leads, tambah & edit user (bukan Admin). Tidak bisa cetak laporan.</div>
+        </div></div>
+        <div class="card" style="border-top:3px solid var(--b);margin-bottom:0"><div class="card-b" style="padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);margin-bottom:4px">👤 User</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:5px">Input Data</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.7">Input & edit leads milik sendiri. Tidak bisa kelola user & tidak bisa cetak.</div>
+        </div></div>
       </div>
-
       <div class="tbl-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Username</th>
-              <th>Role</th>
-              <th>Tanggal Lahir</th>
-              <th>Status</th>
-              <th>Leads Diinput</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Nama</th><th>Username</th><th>Role</th><th>Tanggal Lahir</th><th>Status</th><th>Leads Diinput</th><th>Aksi</th></tr></thead>
           <tbody id="users-tbody"></tbody>
         </table>
       </div>
     </div>
+  </div>
+</div>
 
-  </div><!-- /content -->
-</div><!-- /app -->
+<!-- ==================== MODAL CETAK ==================== -->
+<div class="overlay" id="modal-print">
+  <div class="modal" style="width:480px">
+    <div class="modal-h">
+      <div class="modal-t">🖨️ Cetak Laporan Leads</div>
+      <button class="modal-x" onclick="closeModal('modal-print')">×</button>
+    </div>
+    <div class="modal-b">
+      <p style="font-size:13px;color:var(--t2);margin-bottom:16px">Pilih jenis laporan yang ingin dicetak:</p>
+      <div class="print-opt-grid">
+        <div class="print-opt selected" id="popt-semua" onclick="selectPrintOpt('semua')">
+          <div class="print-opt-ic">📋</div>
+          <div class="print-opt-t">Semua Leads</div>
+          <div class="print-opt-s">Cetak seluruh data leads</div>
+        </div>
+        <div class="print-opt" id="popt-deal" onclick="selectPrintOpt('deal')">
+          <div class="print-opt-ic">✅</div>
+          <div class="print-opt-t">Deal Saja</div>
+          <div class="print-opt-s">Hanya leads berstatus Deal</div>
+        </div>
+        <div class="print-opt" id="popt-proses" onclick="selectPrintOpt('proses')">
+          <div class="print-opt-ic">🔄</div>
+          <div class="print-opt-t">Proses Saja</div>
+          <div class="print-opt-s">Hanya leads berstatus Proses</div>
+        </div>
+        <div class="print-opt" id="popt-followup" onclick="selectPrintOpt('followup')">
+          <div class="print-opt-ic">📞</div>
+          <div class="print-opt-t">Follow Up Saja</div>
+          <div class="print-opt-s">Hanya leads Follow Up</div>
+        </div>
+        <div class="print-opt" id="popt-nodeal" onclick="selectPrintOpt('nodeal')">
+          <div class="print-opt-ic">❌</div>
+          <div class="print-opt-t">No Deal Saja</div>
+          <div class="print-opt-s">Hanya leads No Deal</div>
+        </div>
+        <div class="print-opt" id="popt-peruser" onclick="selectPrintOpt('peruser')">
+          <div class="print-opt-ic">👤</div>
+          <div class="print-opt-t">Per Sales/User</div>
+          <div class="print-opt-s">Filter berdasarkan user input</div>
+        </div>
+      </div>
+      <!-- Filter user (muncul kalau pilih Per User) -->
+      <div id="print-user-filter" style="display:none;margin-top:4px">
+        <div class="field" style="margin-bottom:0">
+          <label>Pilih Sales / User</label>
+          <select id="print-user-sel" style="font-family:inherit"></select>
+        </div>
+      </div>
+      <div style="background:#FFFBEB;border:1.5px solid #F5C400;border-radius:var(--rad);padding:10px 14px;margin-top:14px;font-size:12px;color:#7A5800">
+        🔒 <strong>Fitur cetak hanya untuk Administrator.</strong> Pastikan printer sudah terhubung sebelum mencetak.
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn" onclick="closeModal('modal-print')">Batal</button>
+      <button class="btn btn-print" onclick="doPreviewPrint()">👁️ Preview</button>
+      <button class="btn btn-primary" onclick="doPrint()">🖨️ Cetak Sekarang</button>
+    </div>
+  </div>
+</div>
 
 <!-- ==================== MODAL LEAD ==================== -->
 <div class="overlay" id="modal-lead">
@@ -414,7 +470,7 @@ tr:hover td{background:#FAFAF8}
       </div>
       <div class="field-row">
         <div class="field"><label>Password *</label><input type="password" id="u-pass" placeholder="Min. 4 karakter"></div>
-        <div class="field"><label>Tanggal Lahir *</label><input type="date" id="u-tgl" title="Dipakai sebagai password PDF laporan"></div>
+        <div class="field"><label>Tanggal Lahir *</label><input type="date" id="u-tgl"></div>
       </div>
       <div class="field">
         <label>Role / Hak Akses *</label>
@@ -426,10 +482,7 @@ tr:hover td{background:#FAFAF8}
         <input type="hidden" id="u-role">
       </div>
       <div class="field"><label>Status Akun</label>
-        <select id="u-aktif">
-          <option value="1">✅ Aktif</option>
-          <option value="0">❌ Non-aktif</option>
-        </select>
+        <select id="u-aktif"><option value="1">✅ Aktif</option><option value="0">❌ Non-aktif</option></select>
       </div>
     </div>
     <div class="modal-f">
@@ -456,35 +509,81 @@ tr:hover td{background:#FAFAF8}
   </div>
 </div>
 
+<!-- ==================== PRINT AREA ==================== -->
+<div id="print-area">
+  <div class="pa-wrap">
+    <div class="pa-watermark">CONFIDENTIAL</div>
+    <div class="pa-header">
+      <div class="pa-logo">
+        <div class="pa-logo-box">INF</div>
+        <div>
+          <div class="pa-logo-name">InfinityCRM</div>
+          <div class="pa-logo-sub">Sistem Internal Perusahaan</div>
+        </div>
+      </div>
+      <div class="pa-meta">
+        <div id="pa-title-meta" style="font-size:13px;font-weight:700;color:#0D3F7A"></div>
+        <div id="pa-date-meta"></div>
+        <div id="pa-user-meta"></div>
+        <div id="pa-total-meta"></div>
+      </div>
+    </div>
+    <div class="pa-title" id="pa-doc-title">Laporan Leads Master Database</div>
+    <div class="pa-subtitle" id="pa-doc-sub">InfinityCRM — Dokumen Rahasia Perusahaan</div>
+    <div class="pa-stats" id="pa-stats"></div>
+    <table class="pa-table">
+      <thead>
+        <tr>
+          <th style="width:28px">No</th>
+          <th>Nama Customer</th>
+          <th>Perusahaan / PT</th>
+          <th>Alamat</th>
+          <th>No HP / WA</th>
+          <th>Sales (Input)</th>
+          <th>Status</th>
+          <th>Catatan</th>
+        </tr>
+      </thead>
+      <tbody id="pa-tbody"></tbody>
+    </table>
+    <div class="pa-footer">
+      <div>Dicetak oleh: <strong id="pa-printed-by"></strong> — <span id="pa-print-time"></span></div>
+      <div>InfinityCRM V1.0 — DOKUMEN RAHASIA — Dilarang disebarluaskan</div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ===== STATE =====
 let CU = null;
+let selectedPrintOpt = 'semua';
 let DB = {
   users: [
-    {id:1,nama:'Reza Ramdani Putra',  username:'reza',password:'1234',role:'administrator',tgl:'1990-06-15',aktif:true},
-    {id:2,nama:'Siti Wulandari',username:'siti',password:'1234',role:'superuser',    tgl:'1992-03-20',aktif:true},
-    {id:3,nama:'Andi Nugroho',  username:'andi',password:'1234',role:'user',         tgl:'1988-11-08',aktif:true},
+    {id:1,nama:'Reza Ramdani Putra',username:'reza',password:'1234',role:'administrator',tgl:'1990-06-15',aktif:true},
+    {id:2,nama:'Siti Wulandari',    username:'siti',password:'1234',role:'superuser',    tgl:'1992-03-20',aktif:true},
+    {id:3,nama:'Andi Nugroho',      username:'andi',password:'1234',role:'user',         tgl:'1988-11-08',aktif:true},
   ],
   leads:[
-    {id:1,nama:'Budi Santoso',  pt:'CV Nusantara', alamat:'Jl. Merdeka No.12, Jakarta',      hp:'0812-0001-0001',uid:1,status:'Deal',    cat:'Sudah deal produk A',  ts:new Date('2026-04-20')},
-    {id:2,nama:'Dewi Rahayu',   pt:'PT Sejahtera', alamat:'Jl. Sudirman Kav.5, Surabaya',    hp:'0813-0002-0002',uid:2,status:'Proses',   cat:'Diskusi harga',        ts:new Date('2026-04-22')},
-    {id:3,nama:'Eko Prasetyo',  pt:'UD Makmur',    alamat:'Jl. Ahmad Yani No.88, Bandung',   hp:'0814-0003-0003',uid:3,status:'Followup', cat:'Hubungi minggu depan', ts:new Date('2026-04-24')},
-    {id:4,nama:'Fitri Handayani',pt:'PT Harapan',  alamat:'Jl. Gatot Subroto, Semarang',     hp:'0815-0004-0004',uid:1,status:'Nodeal',   cat:'Budget tidak sesuai',  ts:new Date('2026-04-25')},
-    {id:5,nama:'Galih Permana', pt:'CV Karya Maju',alamat:'Jl. Diponegoro No.3, Yogyakarta', hp:'0816-0005-0005',uid:2,status:'Proses',   cat:'Demo 1 Mei',           ts:new Date('2026-04-26')},
+    {id:1,nama:'Budi Santoso',   pt:'CV Nusantara', alamat:'Jl. Merdeka No.12, Jakarta',      hp:'0812-0001-0001',uid:1,status:'Deal',    cat:'Sudah deal produk A',  ts:new Date('2026-04-20')},
+    {id:2,nama:'Dewi Rahayu',    pt:'PT Sejahtera', alamat:'Jl. Sudirman Kav.5, Surabaya',    hp:'0813-0002-0002',uid:2,status:'Proses',   cat:'Diskusi harga',        ts:new Date('2026-04-22')},
+    {id:3,nama:'Eko Prasetyo',   pt:'UD Makmur',    alamat:'Jl. Ahmad Yani No.88, Bandung',   hp:'0814-0003-0003',uid:3,status:'Followup', cat:'Hubungi minggu depan', ts:new Date('2026-04-24')},
+    {id:4,nama:'Fitri Handayani',pt:'PT Harapan',   alamat:'Jl. Gatot Subroto, Semarang',     hp:'0815-0004-0004',uid:1,status:'Nodeal',   cat:'Budget tidak sesuai',  ts:new Date('2026-04-25')},
+    {id:5,nama:'Galih Permana',  pt:'CV Karya Maju',alamat:'Jl. Diponegoro No.3, Yogyakarta', hp:'0816-0005-0005',uid:2,status:'Proses',   cat:'Demo 1 Mei',           ts:new Date('2026-04-26')},
   ],
   nLid:6, nUid:4,
 };
 
 // ===== HELPERS =====
-const $  = id => document.getElementById(id);
-const ini = n  => n?n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase():'?';
+const $ = id => document.getElementById(id);
+const ini = n => n?n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase():'?';
 const avC = id => 'av'+(id%5);
-const fmtD= d  => d?new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}):'-';
+const fmtD = d => d?new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}):'-';
+const fmtDt = d => d?new Date(d).toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'-';
 function showAlert(id,msg,t){const e=$(id);e.className='alert show alert-'+t;e.textContent=msg;setTimeout(()=>e.classList.remove('show'),3500)}
 function openModal(id){$(id).classList.add('open')}
 function closeModal(id){$(id).classList.remove('open')}
-const isAdmin =()=> CU&&CU.role==='administrator';
-const canEdit =()=> CU&&(CU.role==='administrator'||CU.role==='superuser');
+const isAdmin = () => CU&&CU.role==='administrator';
+const canEdit = () => CU&&(CU.role==='administrator'||CU.role==='superuser');
 
 // ===== AUTH =====
 function doLogin(){
@@ -501,8 +600,12 @@ function doLogin(){
     $('top-av').textContent=ini(u.nama);
     $('top-name').textContent=u.nama;
     $('top-role').textContent=u.role;
-    // sembunyikan menu user untuk role user biasa
     $('nav-users').style.display=(u.role==='user')?'none':'';
+    // Tombol cetak hanya muncul untuk administrator
+    const showPrint = u.role==='administrator';
+    $('btn-cetak-nav').style.display   = showPrint?'':'none';
+    $('btn-cetak-dash').style.display  = showPrint?'':'none';
+    $('btn-cetak-leads').style.display = showPrint?'':'none';
     goPage('dashboard');
     btn.disabled=false;btn.innerHTML='Masuk ke Dashboard';
   },700);
@@ -516,7 +619,7 @@ function doLogout(){
 
 // ===== NAVIGATION =====
 function goPage(nm){
-  if(nm==='users'&&!canEdit()){return;}
+  if(nm==='users'&&!canEdit())return;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tn-item').forEach(n=>n.classList.remove('active'));
   $('page-'+nm).classList.add('active');
@@ -536,23 +639,12 @@ function renderDashboard(){
   $('d-fu').textContent=c('Followup');
   $('d-nd').textContent=c('Nodeal');
   $('dash-date').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-
   const sts=[{k:'Deal',lbl:'Deal',col:'#2D7D3A'},{k:'Proses',lbl:'Proses',col:'#1A5FA8'},{k:'Followup',lbl:'Follow Up',col:'#C4570A'},{k:'Nodeal',lbl:'No Deal',col:'#B91C1C'}];
   const mx=Math.max(...sts.map(s=>c(s.k)),1);
-  $('dash-bars').innerHTML=sts.map(s=>`
-    <div class="bar-row">
-      <div class="bar-lbl">${s.lbl}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(c(s.k)/mx*100)}%;background:${s.col}"></div></div>
-      <div class="bar-num">${c(s.k)}</div>
-    </div>`).join('');
-
+  $('dash-bars').innerHTML=sts.map(s=>`<div class="bar-row"><div class="bar-lbl">${s.lbl}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c(s.k)/mx*100)}%;background:${s.col}"></div></div><div class="bar-num">${c(s.k)}</div></div>`).join('');
   const recent=[...ls].sort((a,b)=>b.id-a.id).slice(0,5);
   const dotCol={Deal:'#2D7D3A',Proses:'#1A5FA8',Followup:'#C4570A',Nodeal:'#B91C1C'};
-  $('dash-recent').innerHTML=recent.length===0?'<div style="color:var(--t3);font-size:13px">Belum ada data</div>':
-    recent.map(l=>{const u=DB.users.find(x=>x.id===l.uid);return`<div class="tl">
-      <div class="tl-dot" style="background:${dotCol[l.status]||'#999'}"></div>
-      <div><div class="tl-t">${l.nama} <span style="font-weight:400;color:var(--t2)">— ${l.pt||'—'}</span></div>
-      <div class="tl-m">${sBadge(l.status)} · ${u?u.nama:'—'} · ${fmtD(l.ts)}</div></div></div>`;}).join('');
+  $('dash-recent').innerHTML=recent.length===0?'<div style="color:var(--t3);font-size:13px">Belum ada data</div>':recent.map(l=>{const u=DB.users.find(x=>x.id===l.uid);return`<div class="tl"><div class="tl-dot" style="background:${dotCol[l.status]||'#999'}"></div><div><div class="tl-t">${l.nama} <span style="font-weight:400;color:var(--t2)">— ${l.pt||'—'}</span></div><div class="tl-m">${sBadge(l.status)} · ${u?u.nama:'—'} · ${fmtD(l.ts)}</div></div></div>`;}).join('');
 }
 
 // ===== LEADS =====
@@ -561,171 +653,171 @@ function sBadge(s){
   const lbl={Deal:'✅ Deal',Proses:'🔄 Proses',Followup:'📞 Follow Up',Nodeal:'❌ No Deal'};
   return`<span class="badge ${cls[s]||'b-proses'}">${lbl[s]||s}</span>`;
 }
-
 function renderLeads(){
   const q=($('leads-search')||{value:''}).value.toLowerCase();
   const f=($('leads-filter')||{value:''}).value;
   let rows=[...DB.leads];
-  if(CU.role==='user') rows=rows.filter(l=>l.uid===CU.id); // user hanya lihat milik sendiri
+  if(CU.role==='user') rows=rows.filter(l=>l.uid===CU.id);
   if(q) rows=rows.filter(l=>(l.nama+l.pt+l.alamat+l.hp).toLowerCase().includes(q));
   if(f) rows=rows.filter(l=>l.status===f);
   $('leads-count').textContent=DB.leads.length;
-
-  if(rows.length===0){
-    $('leads-tbody').innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-ic">🔍</div><div class="empty-tx">Tidak ada data yang cocok</div></div></td></tr>`;
-    return;
-  }
+  if(rows.length===0){$('leads-tbody').innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-ic">🔍</div><div class="empty-tx">Tidak ada data yang cocok</div></div></td></tr>`;return;}
   $('leads-tbody').innerHTML=rows.map((l,i)=>{
     const u=DB.users.find(x=>x.id===l.uid);
     const canEd=isAdmin()||CU.role==='superuser'||(CU.role==='user'&&l.uid===CU.id);
     const canDel=isAdmin();
     return`<tr>
       <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3)">${i+1}</td>
-      <td><div class="fc"><div class="av ${avC(l.id)}">${ini(l.nama)}</div>
-        <div><div style="font-weight:600">${l.nama}</div>
-        ${l.cat?`<div style="font-size:11px;color:var(--t3);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.cat}</div>`:''}
-        </div></div></td>
+      <td><div class="fc"><div class="av ${avC(l.id)}">${ini(l.nama)}</div><div><div style="font-weight:600">${l.nama}</div>${l.cat?`<div style="font-size:11px;color:var(--t3);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.cat}</div>`:''}</div></div></td>
       <td style="font-weight:500">${l.pt||'—'}</td>
       <td style="font-size:12px;color:var(--t2);max-width:130px;word-break:break-word">${l.alamat||'—'}</td>
-      <td><a href="https://wa.me/${(l.hp||'').replace(/\D/g,'')}" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--b);text-decoration:none" title="Buka WA">${l.hp||'—'}</a></td>
+      <td><a href="https://wa.me/${(l.hp||'').replace(/\D/g,'')}" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--b);text-decoration:none">${l.hp||'—'}</a></td>
       <td>${u?`<div class="fc"><div class="av ${avC(u.id)}" style="width:24px;height:24px;font-size:10px">${ini(u.nama)}</div><span style="font-size:12px">${u.nama}</span></div>`:'—'}</td>
       <td>${sBadge(l.status)}</td>
       <td><div style="display:flex;gap:4px">
-        ${canEd?`<button class="btn btn-sm" onclick="openEditLead(${l.id})" title="Edit">✏️</button>`:''}
-        ${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusLead(${l.id})" title="Hapus">🗑️</button>`:''}
+        ${canEd?`<button class="btn btn-sm" onclick="openEditLead(${l.id})">✏️</button>`:''}
+        ${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusLead(${l.id})">🗑️</button>`:''}
         ${!canEd&&!canDel?`<span style="font-size:11px;color:var(--t3)">—</span>`:''}
       </div></td>
     </tr>`;
   }).join('');
 }
-
-function openAddLead(){
-  $('modal-lead-t').textContent='Tambah Lead Baru';
-  $('lead-edit-id').value='';
-  ['ld-nama','ld-pt','ld-alamat','ld-hp','ld-catatan'].forEach(id=>$(id).value='');
-  $('ld-status').value='Proses';
-  openModal('modal-lead');
-}
-function openEditLead(id){
-  const l=DB.leads.find(x=>x.id===id);if(!l)return;
-  if(CU.role==='user'&&l.uid!==CU.id){alert('Anda hanya bisa edit data yang Anda input sendiri.');return;}
-  $('modal-lead-t').textContent='Edit Data Lead';
-  $('lead-edit-id').value=id;
-  $('ld-nama').value=l.nama||'';$('ld-pt').value=l.pt||'';
-  $('ld-alamat').value=l.alamat||'';$('ld-hp').value=l.hp||'';
-  $('ld-status').value=l.status||'Proses';$('ld-catatan').value=l.cat||'';
-  openModal('modal-lead');
-}
-function saveLead(){
-  const id=$('lead-edit-id').value;
-  const nama=$('ld-nama').value.trim();
-  if(!nama){showAlert('lead-err','Nama Customer wajib diisi.','err');return;}
-  const data={nama,pt:$('ld-pt').value.trim(),alamat:$('ld-alamat').value.trim(),hp:$('ld-hp').value.trim(),status:$('ld-status').value,cat:$('ld-catatan').value.trim()};
-  if(id){
-    const i=DB.leads.findIndex(x=>x.id==id);
-    if(i>=0) DB.leads[i]={...DB.leads[i],...data};
-  } else {
-    DB.leads.push({id:DB.nLid++,...data,uid:CU.id,ts:new Date()});
-  }
-  closeModal('modal-lead');
-  renderLeads();
-  if($('page-dashboard').classList.contains('active')) renderDashboard();
-}
-function confHapusLead(id){
-  const l=DB.leads.find(x=>x.id===id);if(!l)return;
-  $('hapus-msg').textContent=`Yakin hapus lead "${l.nama}" dari ${l.pt||'—'}? Data tidak bisa dikembalikan.`;
-  $('hapus-ok').onclick=()=>{DB.leads=DB.leads.filter(x=>x.id!==id);closeModal('modal-hapus');renderLeads();renderDashboard();};
-  openModal('modal-hapus');
-}
+function openAddLead(){$('modal-lead-t').textContent='Tambah Lead Baru';$('lead-edit-id').value='';['ld-nama','ld-pt','ld-alamat','ld-hp','ld-catatan'].forEach(id=>$(id).value='');$('ld-status').value='Proses';openModal('modal-lead');}
+function openEditLead(id){const l=DB.leads.find(x=>x.id===id);if(!l)return;if(CU.role==='user'&&l.uid!==CU.id){alert('Anda hanya bisa edit data yang Anda input sendiri.');return;}$('modal-lead-t').textContent='Edit Data Lead';$('lead-edit-id').value=id;$('ld-nama').value=l.nama||'';$('ld-pt').value=l.pt||'';$('ld-alamat').value=l.alamat||'';$('ld-hp').value=l.hp||'';$('ld-status').value=l.status||'Proses';$('ld-catatan').value=l.cat||'';openModal('modal-lead');}
+function saveLead(){const id=$('lead-edit-id').value;const nama=$('ld-nama').value.trim();if(!nama){showAlert('lead-err','Nama Customer wajib diisi.','err');return;}const data={nama,pt:$('ld-pt').value.trim(),alamat:$('ld-alamat').value.trim(),hp:$('ld-hp').value.trim(),status:$('ld-status').value,cat:$('ld-catatan').value.trim()};if(id){const i=DB.leads.findIndex(x=>x.id==id);if(i>=0)DB.leads[i]={...DB.leads[i],...data};}else{DB.leads.push({id:DB.nLid++,...data,uid:CU.id,ts:new Date()});}closeModal('modal-lead');renderLeads();if($('page-dashboard').classList.contains('active'))renderDashboard();}
+function confHapusLead(id){const l=DB.leads.find(x=>x.id===id);if(!l)return;$('hapus-msg').textContent=`Yakin hapus lead "${l.nama}" dari ${l.pt||'—'}? Data tidak bisa dikembalikan.`;$('hapus-ok').onclick=()=>{DB.leads=DB.leads.filter(x=>x.id!==id);closeModal('modal-hapus');renderLeads();renderDashboard();};openModal('modal-hapus');}
 
 // ===== USERS =====
-function rBadge(r){
-  const cls={administrator:'b-admin',superuser:'b-super',user:'b-user'};
-  const lbl={administrator:'👑 Administrator',superuser:'⚡ Superuser',user:'👤 User'};
-  return`<span class="badge ${cls[r]||'b-user'}">${lbl[r]||r}</span>`;
-}
-function renderUsers(){
-  $('users-tbody').innerHTML=DB.users.length===0?
-    `<tr><td colspan="7"><div class="empty"><div class="empty-ic">👥</div><div class="empty-tx">Belum ada user</div></div></td></tr>`:
-    DB.users.map(u=>{
-      const lc=DB.leads.filter(l=>l.uid===u.id).length;
-      const canEd=isAdmin()||(CU.role==='superuser'&&u.role!=='administrator');
-      const canDel=isAdmin()&&u.id!==CU.id;
-      return`<tr>
-        <td><div class="fc"><div class="av ${avC(u.id)}">${ini(u.nama)}</div>
-          <div style="font-weight:600">${u.nama}${u.id===CU.id?` <span style="font-size:10px;background:var(--y);color:#000;padding:1px 7px;border-radius:10px;font-weight:700;margin-left:4px">Anda</span>`:''}</div></div></td>
-        <td><code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#F0EDE8;padding:2px 8px;border-radius:5px">${u.username}</code></td>
-        <td>${rBadge(u.role)}</td>
-        <td style="font-size:12px;color:var(--t2)">${fmtD(u.tgl)}</td>
-        <td><span class="badge ${u.aktif?'b-aktif':'b-nonaktif'}">${u.aktif?'Aktif':'Non-aktif'}</span></td>
-        <td><strong style="color:var(--b)">${lc}</strong> <span style="font-size:11px;color:var(--t3)">leads</span></td>
-        <td><div style="display:flex;gap:4px">
-          ${canEd?`<button class="btn btn-sm" onclick="openEditUser(${u.id})">✏️ Edit</button>`:''}
-          ${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusUser(${u.id})">🗑️</button>`:''}
-          ${!canEd&&!canDel?`<span style="font-size:11px;color:var(--t3)">—</span>`:''}
-        </div></td>
-      </tr>`;
-    }).join('');
+function rBadge(r){const cls={administrator:'b-admin',superuser:'b-super',user:'b-user'};const lbl={administrator:'👑 Administrator',superuser:'⚡ Superuser',user:'👤 User'};return`<span class="badge ${cls[r]||'b-user'}">${lbl[r]||r}</span>`;}
+function renderUsers(){$('users-tbody').innerHTML=DB.users.length===0?`<tr><td colspan="7"><div class="empty"><div class="empty-ic">👥</div><div class="empty-tx">Belum ada user</div></div></td></tr>`:DB.users.map(u=>{const lc=DB.leads.filter(l=>l.uid===u.id).length;const canEd=isAdmin()||(CU.role==='superuser'&&u.role!=='administrator');const canDel=isAdmin()&&u.id!==CU.id;return`<tr><td><div class="fc"><div class="av ${avC(u.id)}">${ini(u.nama)}</div><div style="font-weight:600">${u.nama}${u.id===CU.id?` <span style="font-size:10px;background:var(--y);color:#000;padding:1px 7px;border-radius:10px;font-weight:700;margin-left:4px">Anda</span>`:''}</div></div></td><td><code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#F0EDE8;padding:2px 8px;border-radius:5px">${u.username}</code></td><td>${rBadge(u.role)}</td><td style="font-size:12px;color:var(--t2)">${fmtD(u.tgl)}</td><td><span class="badge ${u.aktif?'b-aktif':'b-nonaktif'}">${u.aktif?'Aktif':'Non-aktif'}</span></td><td><strong style="color:var(--b)">${lc}</strong> <span style="font-size:11px;color:var(--t3)">leads</span></td><td><div style="display:flex;gap:4px">${canEd?`<button class="btn btn-sm" onclick="openEditUser(${u.id})">✏️ Edit</button>`:''}${canDel?`<button class="btn btn-sm btn-danger" onclick="confHapusUser(${u.id})">🗑️</button>`:''}${!canEd&&!canDel?`<span style="font-size:11px;color:var(--t3)">—</span>`:''}</div></td></tr>`;}).join('');}
+let pickedRole='';
+function pickRole(r,el){pickedRole=r;$('u-role').value=r;document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));el.classList.add('rp-'+r);}
+function openAddUser(){if(!canEdit()){alert('Akses ditolak.');return;}$('modal-user-t').textContent='Tambah User Baru';$('user-edit-id').value='';['u-nama','u-uname','u-pass','u-tgl'].forEach(id=>$(id).value='');$('u-aktif').value='1';$('u-role').value='';pickedRole='';$('u-pass').placeholder='Min. 4 karakter';document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));openModal('modal-user');}
+function openEditUser(id){if(!canEdit()){alert('Akses ditolak.');return;}const u=DB.users.find(x=>x.id===id);if(!u)return;if(CU.role==='superuser'&&u.role==='administrator'){alert('Superuser tidak bisa edit akun Administrator.');return;}$('modal-user-t').textContent='Edit User — '+u.nama;$('user-edit-id').value=id;$('u-nama').value=u.nama;$('u-uname').value=u.username;$('u-pass').value='';$('u-pass').placeholder='Kosongkan jika tidak ingin ubah password';$('u-tgl').value=u.tgl||'';$('u-aktif').value=u.aktif?'1':'0';pickedRole=u.role;$('u-role').value=u.role;document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));document.querySelector(`.rp[data-role="${u.role}"]`)?.classList.add('rp-'+u.role);openModal('modal-user');}
+function saveUser(){const id=$('user-edit-id').value;const nama=$('u-nama').value.trim(),uname=$('u-uname').value.trim().toLowerCase();const pass=$('u-pass').value,role=$('u-role').value;const tgl=$('u-tgl').value,aktif=$('u-aktif').value==='1';if(!nama||!uname){showAlert('user-err','Nama dan username wajib diisi.','err');return;}if(!role){showAlert('user-err','Pilih role terlebih dahulu.','err');return;}if(!tgl){showAlert('user-err','Tanggal lahir wajib diisi.','err');return;}if(CU.role==='superuser'&&role==='administrator'){showAlert('user-err','Superuser tidak bisa set role Administrator.','err');return;}if(id){const i=DB.users.findIndex(x=>x.id==id);if(i<0)return;if(DB.users.find(x=>x.username===uname&&x.id!=id)){showAlert('user-err','Username sudah digunakan.','err');return;}DB.users[i]={...DB.users[i],nama,username:uname,role,tgl,aktif};if(pass)DB.users[i].password=pass;}else{if(!pass||pass.length<4){showAlert('user-err','Password minimal 4 karakter.','err');return;}if(DB.users.find(x=>x.username===uname)){showAlert('user-err','Username sudah digunakan.','err');return;}DB.users.push({id:DB.nUid++,nama,username:uname,password:pass,role,tgl,aktif});}closeModal('modal-user');renderUsers();}
+function confHapusUser(id){if(!isAdmin()){alert('Hanya Administrator yang bisa hapus user.');return;}const u=DB.users.find(x=>x.id===id);if(!u)return;if(u.id===CU.id){alert('Tidak bisa hapus akun sendiri.');return;}$('hapus-msg').textContent=`Yakin hapus user "${u.nama}" (@${u.username})? Data leads yang diinput tetap tersimpan.`;$('hapus-ok').onclick=()=>{DB.users=DB.users.filter(x=>x.id!==id);closeModal('modal-hapus');renderUsers();};openModal('modal-hapus');}
+
+// ===== PRINT SYSTEM =====
+function openPrintModal(){
+  if(!isAdmin()){alert('Fitur cetak hanya untuk Administrator!');return;}
+  // Isi dropdown filter user
+  const sel=$('print-user-sel');
+  sel.innerHTML=DB.users.map(u=>`<option value="${u.id}">${u.nama} (${u.role})</option>`).join('');
+  selectedPrintOpt='semua';
+  document.querySelectorAll('.print-opt').forEach(el=>el.classList.remove('selected'));
+  $('popt-semua').classList.add('selected');
+  $('print-user-filter').style.display='none';
+  openModal('modal-print');
 }
 
-let pickedRole='';
-function pickRole(r,el){
-  pickedRole=r;$('u-role').value=r;
-  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
-  el.classList.add('rp-'+r);
+function selectPrintOpt(opt){
+  selectedPrintOpt=opt;
+  document.querySelectorAll('.print-opt').forEach(el=>el.classList.remove('selected'));
+  $('popt-'+opt).classList.add('selected');
+  $('print-user-filter').style.display=(opt==='peruser')?'block':'none';
 }
-function openAddUser(){
-  if(!canEdit()){alert('Akses ditolak.');return;}
-  $('modal-user-t').textContent='Tambah User Baru';
-  $('user-edit-id').value='';
-  ['u-nama','u-uname','u-pass','u-tgl'].forEach(id=>$(id).value='');
-  $('u-aktif').value='1';$('u-role').value='';pickedRole='';
-  $('u-pass').placeholder='Min. 4 karakter';
-  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
-  openModal('modal-user');
-}
-function openEditUser(id){
-  if(!canEdit()){alert('Akses ditolak.');return;}
-  const u=DB.users.find(x=>x.id===id);if(!u)return;
-  if(CU.role==='superuser'&&u.role==='administrator'){alert('Superuser tidak bisa edit akun Administrator.');return;}
-  $('modal-user-t').textContent='Edit User — '+u.nama;
-  $('user-edit-id').value=id;
-  $('u-nama').value=u.nama;$('u-uname').value=u.username;
-  $('u-pass').value='';$('u-pass').placeholder='Kosongkan jika tidak ingin ubah password';
-  $('u-tgl').value=u.tgl||'';$('u-aktif').value=u.aktif?'1':'0';
-  pickedRole=u.role;$('u-role').value=u.role;
-  document.querySelectorAll('.rp').forEach(p=>p.classList.remove('rp-administrator','rp-superuser','rp-user'));
-  document.querySelector(`.rp[data-role="${u.role}"]`)?.classList.add('rp-'+u.role);
-  openModal('modal-user');
-}
-function saveUser(){
-  const id=$('user-edit-id').value;
-  const nama=$('u-nama').value.trim(),uname=$('u-uname').value.trim().toLowerCase();
-  const pass=$('u-pass').value,role=$('u-role').value;
-  const tgl=$('u-tgl').value,aktif=$('u-aktif').value==='1';
-  if(!nama||!uname){showAlert('user-err','Nama dan username wajib diisi.','err');return;}
-  if(!role){showAlert('user-err','Pilih role terlebih dahulu.','err');return;}
-  if(!tgl){showAlert('user-err','Tanggal lahir wajib diisi.','err');return;}
-  if(CU.role==='superuser'&&role==='administrator'){showAlert('user-err','Superuser tidak bisa set role Administrator.','err');return;}
-  if(id){
-    const i=DB.users.findIndex(x=>x.id==id);if(i<0)return;
-    if(DB.users.find(x=>x.username===uname&&x.id!=id)){showAlert('user-err','Username sudah digunakan.','err');return;}
-    DB.users[i]={...DB.users[i],nama,username:uname,role,tgl,aktif};
-    if(pass) DB.users[i].password=pass;
-  } else {
-    if(!pass||pass.length<4){showAlert('user-err','Password minimal 4 karakter.','err');return;}
-    if(DB.users.find(x=>x.username===uname)){showAlert('user-err','Username sudah digunakan.','err');return;}
-    DB.users.push({id:DB.nUid++,nama,username:uname,password:pass,role,tgl,aktif});
+
+function buildPrintData(){
+  let rows=[...DB.leads];
+  let judulFilter='Semua Leads';
+  if(selectedPrintOpt==='deal'){rows=rows.filter(l=>l.status==='Deal');judulFilter='Leads Berstatus Deal';}
+  else if(selectedPrintOpt==='proses'){rows=rows.filter(l=>l.status==='Proses');judulFilter='Leads Berstatus Proses';}
+  else if(selectedPrintOpt==='followup'){rows=rows.filter(l=>l.status==='Followup');judulFilter='Leads Berstatus Follow Up';}
+  else if(selectedPrintOpt==='nodeal'){rows=rows.filter(l=>l.status==='Nodeal');judulFilter='Leads Berstatus No Deal';}
+  else if(selectedPrintOpt==='peruser'){
+    const uid=parseInt($('print-user-sel').value);
+    const u=DB.users.find(x=>x.id===uid);
+    rows=rows.filter(l=>l.uid===uid);
+    judulFilter=`Leads oleh: ${u?u.nama:'—'}`;
   }
-  closeModal('modal-user');renderUsers();
+  return{rows,judulFilter};
 }
-function confHapusUser(id){
-  if(!isAdmin()){alert('Hanya Administrator yang bisa hapus user.');return;}
-  const u=DB.users.find(x=>x.id===id);if(!u)return;
-  if(u.id===CU.id){alert('Tidak bisa hapus akun sendiri.');return;}
-  $('hapus-msg').textContent=`Yakin hapus user "${u.nama}" (@${u.username})? Data leads yang diinput tetap tersimpan.`;
-  $('hapus-ok').onclick=()=>{DB.users=DB.users.filter(x=>x.id!==id);closeModal('modal-hapus');renderUsers();};
-  openModal('modal-hapus');
+
+function renderPrintArea(rows, judulFilter){
+  const now = new Date();
+  const c = s => rows.filter(l=>l.status===s).length;
+
+  $('pa-doc-title').textContent = 'Laporan Leads Master Database';
+  $('pa-doc-sub').textContent   = `Filter: ${judulFilter} — InfinityCRM V1.0`;
+  $('pa-title-meta').textContent = judulFilter;
+  $('pa-date-meta').textContent  = 'Tanggal cetak: ' + now.toLocaleString('id-ID',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  $('pa-user-meta').textContent  = 'Dicetak oleh: ' + (CU?CU.nama:'—');
+  $('pa-total-meta').textContent = 'Total data: ' + rows.length + ' leads';
+  $('pa-printed-by').textContent = CU?CU.nama:'—';
+  $('pa-print-time').textContent = now.toLocaleString('id-ID');
+
+  // Stats
+  $('pa-stats').innerHTML = [
+    {l:'Total',v:rows.length,c:'#1A5FA8'},
+    {l:'Deal',v:c('Deal'),c:'#2D7D3A'},
+    {l:'Proses',v:c('Proses'),c:'#1A5FA8'},
+    {l:'Follow Up',v:c('Followup'),c:'#C4570A'},
+    {l:'No Deal',v:c('Nodeal'),c:'#B91C1C'},
+  ].map(s=>`<div class="pa-stat"><div class="pa-stat-v" style="color:${s.c}">${s.v}</div><div class="pa-stat-l">${s.l}</div></div>`).join('');
+
+  // Table rows
+  const badgeCls={Deal:'pa-badge-deal',Proses:'pa-badge-proses',Followup:'pa-badge-followup',Nodeal:'pa-badge-nodeal'};
+  const statusLbl={Deal:'Deal',Proses:'Proses',Followup:'Follow Up',Nodeal:'No Deal'};
+  $('pa-tbody').innerHTML = rows.length===0
+    ? `<tr><td colspan="8" style="text-align:center;padding:20px;color:#9C9C98">Tidak ada data untuk dicetak</td></tr>`
+    : rows.map((l,i)=>{
+        const u=DB.users.find(x=>x.id===l.uid);
+        return`<tr>
+          <td style="font-family:monospace;font-size:8pt;color:#9C9C98">${i+1}</td>
+          <td style="font-weight:600">${l.nama||'—'}</td>
+          <td>${l.pt||'—'}</td>
+          <td style="font-size:8pt;color:#5C5C58">${l.alamat||'—'}</td>
+          <td style="font-family:monospace;font-size:8pt">${l.hp||'—'}</td>
+          <td style="font-size:8pt">${u?u.nama:'—'}</td>
+          <td><span class="pa-badge ${badgeCls[l.status]||''}">${statusLbl[l.status]||l.status}</span></td>
+          <td style="font-size:8pt;color:#5C5C58">${l.cat||'—'}</td>
+        </tr>`;
+      }).join('');
+}
+
+function doPreviewPrint(){
+  if(!isAdmin()){alert('Akses ditolak!');return;}
+  const {rows,judulFilter}=buildPrintData();
+  closeModal('modal-print');
+  renderPrintArea(rows,judulFilter);
+  // Tampilkan print area sebagai overlay preview
+  const pa=$('print-area');
+  pa.style.cssText='display:block;position:fixed;inset:0;background:#fff;z-index:600;overflow-y:auto;padding:0';
+  // Tambahkan tombol tutup preview & cetak
+  const bar=document.createElement('div');
+  bar.id='preview-bar';
+  bar.style.cssText='position:sticky;top:0;background:#0D3F7A;padding:10px 20px;display:flex;gap:10px;align-items:center;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+  bar.innerHTML=`
+    <span style="color:#fff;font-weight:700;font-size:13px;flex:1">🖨️ Preview Cetak — ${judulFilter}</span>
+    <button onclick="doPrintFromPreview()" style="background:#F5C400;color:#000;border:none;padding:8px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px">🖨️ Cetak Sekarang</button>
+    <button onclick="closePreview()" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:8px;font-weight:600;cursor:pointer;font-family:inherit;font-size:13px">✕ Tutup Preview</button>`;
+  pa.insertBefore(bar,pa.firstChild);
+}
+
+function closePreview(){
+  const pa=$('print-area');
+  const bar=document.getElementById('preview-bar');
+  if(bar)bar.remove();
+  pa.style.cssText='display:none';
+}
+
+function doPrintFromPreview(){
+  const bar=document.getElementById('preview-bar');
+  if(bar)bar.style.display='none';
+  window.print();
+  setTimeout(()=>{if(bar)bar.style.display='flex';},1000);
+}
+
+function doPrint(){
+  if(!isAdmin()){alert('Akses ditolak!');return;}
+  const {rows,judulFilter}=buildPrintData();
+  closeModal('modal-print');
+  renderPrintArea(rows,judulFilter);
+  $('print-area').style.cssText='display:block;position:fixed;inset:0;background:#fff;z-index:600';
+  setTimeout(()=>{
+    window.print();
+    setTimeout(()=>{$('print-area').style.cssText='display:none';},500);
+  },300);
 }
 
 // ===== INIT =====
